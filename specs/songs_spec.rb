@@ -7,8 +7,13 @@ Minitest::Reporters.use! MiniTest::Reporters::SpecReporter.new
 class TestSongs < Minitest::Test
 
   def setup
-    @song = Song.new("The Passenger")
-  end 
+    @testsong = Song.new("The Passenger")
+  end
 
+  def test_name
+    assert_equal("The Passenger", @testsong.name)
+  end
+
+  
 
 end

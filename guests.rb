@@ -10,4 +10,6 @@ class Guest
     # @current_room = current_room
   end
 
+
+
 end
