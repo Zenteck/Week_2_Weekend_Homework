@@ -54,10 +54,33 @@ class TestRooms < Minitest::Test
     assert_equal([@guest4], @room2.guestlist)
   end
 
+  def test_capacity_check_fail
+    @room2.guestlist.push(@guest1)
+    @room2.guestlist.push(@guest2)
+    @room2.capacity_check(@guest3)
+    assert_equal("Sorry it's full", @room2.capacity_check(@guest3))
+  end
 
+  def test_capacity_check_success
+    @room1.guestlist.push(@guest1)
+    @room1.guestlist.push(@guest2)
+    @room1.capacity_check(@guest3)
+    assert_equal([@guest1, @guest2, @guest3], @room1.guestlist)
+  end
 
+  def test_request_entry_fee_success
+    @room1.request_entry_fee(@guest1)
+    assert_equal(1, @room1.guestlist.length)
+    assert_equal(80, @guest1.cash)
+  end
 
-
+  def test_request_entry_fee_success
+    @room1.request_entry_fee(@guest1)
+    @room1.request_entry_fee(@guest4)
+    assert_equal(1, @room1.guestlist.length)
+    assert_equal(80, @guest1.cash)
+    assert_equal(10, @guest4.cash)
+  end
 
 end
 
